@@ -1,0 +1,62 @@
+baseURL: 'https://lively-meadow-018b9bd00.1.azurestaticapps.net/'
+title: 'My New Hugo Site'
+theme: 'PaperMod'
+
+paginate: 5
+
+enableInlineShortcodes: true
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+enableEmoji: true
+pygmentsUseClasses: true
+
+minify:
+    disableXML: true
+    # minifyOutput: true
+
+params:
+  # defaultTheme: light
+  # defaultTheme: dark
+  defaultTheme: auto # to switch between dark or light according to browser theme
+
+  homeInfoParams:
+    Title: Hi there 🚀
+    # Content: Can be Info, links, about...
+    Content: >
+      Welcome to demo of hugo's theme PaperMod.
+
+      - **PaperMod** is a simple but fast and responsive theme with useful feature-set that enhances UX.
+
+      - Do give a 🌟 on Github !
+
+      - 
+
+      - ![](https://functionapp320220823.blob.core.windows.net/web/response.png)
+  
+  socialIcons:
+    - name: github
+      url: "https://github.com"
+    - name: Rss
+      url: "index.xml"
+
+  ShowCodeCopyButtons: true
+
+taxonomies:
+  category: categories
+  tag: tags
+menu:
+  main:
+    - identifier: categories
+      name: categories
+      url: /categories/
+      weight: 10
+    - identifier: tags
+      name: tags
+      url: /tags/
+      weight: 20
+    - identifier: github
+      name: GitHub
+      url: https://github.com
+      weight: 30
