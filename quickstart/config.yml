@@ -1,5 +1,5 @@
 baseURL: 'https://lively-meadow-018b9bd00.1.azurestaticapps.net/'
-title: 'My New Hugo Site'
+title: 'Status Page 📉'
 theme: 'PaperMod'
 
 paginate: 5
@@ -13,28 +13,39 @@ enableEmoji: true
 pygmentsUseClasses: true
 
 minify:
-    disableXML: true
-    # minifyOutput: true
+  disableXML: true
+  minifyOutput: true
 
 params:
   env: production # to enable google analytics, opengraph, twitter-cards and schema.
   # defaultTheme: light
   # defaultTheme: dark
   defaultTheme: auto # to switch between dark or light according to browser theme
+  # DateFormat: "January 2, 2006"
+  DateFormat: "2006-01-02"
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: true
+  UseHugoToc: true
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: false
+  hidemeta: false
+  hideSummary: false
+  showtoc: false
+  tocopen: false
 
   homeInfoParams:
     Title: Hi there 🚀
     # Content: Can be Info, links, about...
     Content: >
-      Welcome to demo of hugo's theme PaperMod.
+      - 📉 response graph.
 
-      - **PaperMod** is a simple but fast and responsive theme with useful feature-set that enhances UX.
-
-      - Do give a 🌟 on Github !
-
-      - 
-
-      - ![](https://functionapp320220823.blob.core.windows.net/web/response.png)
+      - ![📉 response](https://functionapp320220823.blob.core.windows.net/web/response.png)
   
   socialIcons:
     - name: github
@@ -42,11 +53,10 @@ params:
     - name: Rss
       url: "index.xml"
 
-  ShowCodeCopyButtons: true
-
 taxonomies:
   category: categories
   tag: tags
+
 menu:
   main:
     - identifier: categories
