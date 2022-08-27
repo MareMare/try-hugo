@@ -13,10 +13,11 @@
 
     展開後：
     ```ps1
-    C:\hugo\bin
-        hugo.exe
-        LICENSE
-        README.md
+    C:\HUGO
+        └─bin
+            hugo.exe
+            LICENSE
+            README.md
     ```
 
 2. `c:\hugo\bin` へ PATH を通す
