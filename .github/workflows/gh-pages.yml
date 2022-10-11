@@ -4,15 +4,10 @@ name: Deploy static content to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
+    branches: ["sample"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-    inputs:
-      hugoVersion:
-        description: "Hugo Version"
-        required: false
-        default: "0.100.1"
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -31,13 +26,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       HUGO_VERSION: "0.100.1"
+      WORKING_DIRECTORY: "./quickstart"
+
     steps:
       - name: 🛒 Checkout
         uses: actions/checkout@v3
-
-      - name: 👀 Check Hugo version
-        if: ${{ github.event.inputs.hugoVersion }}
-        run: export HUGO_VERSION="${{ github.event.inputs.hugoVersion }}"
 
       - name: ✨ Setup Hugo
         run: |
@@ -53,16 +46,20 @@ jobs:
 
       - name: 🛠️ Build #TODO: eventually use the same build step in cicd.yaml (merge this action into that one)
         run: |
-          hugo \
-            --cleanDestinationDir \
-            --minify \
-            --baseURL ${{ steps.pages.outputs.base_url }}
+          cd ${{ env.WORKING_DIRECTORY }}
+          hugo --minify
+        # run: |
+        #   cd ${{ env.WORKING_DIRECTORY }}
+        #   hugo \
+        #     --cleanDestinationDir \
+        #     --minify \
+        #     --baseURL ${{ steps.pages.outputs.base_url }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         # if: ${{ success() && github.ref == 'refs/heads/main' }}
         with:
-          path: ./public
+          path: ${{ env.WORKING_DIRECTORY }}/public
 
   # Deployment job
   deploy:
