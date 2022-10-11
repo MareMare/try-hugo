@@ -1,17 +1,6 @@
----
-title: "README"
-date: 2022-08-26T12:16:36+09:00
-tags: ["hugo", "azure"]
-categories: ["azure", "hugo"]
-ShowToc: true
-TocOpen: false
-draft: false
----
-
 # try-hugo
 おためし
 
-<!--more-->
 
 ## インストール
 [Install Hugo \| Hugo](https://gohugo.io/getting-started/installing/#windows)
@@ -33,7 +22,7 @@ draft: false
 
 2. `c:\hugo\bin` へ PATH を通す
 
-    ![](/img/environment-path.png)
+    ![](doc/environment-path.png)
 
 3. 確認
 
@@ -88,10 +77,10 @@ draft: false
     git add -A
     git commit -m "add quickstart"
     ```
-### Deploy your web app
+### Deploy to Azure Static Web Apps
 1. Create the application
 
-    ![](/img/azure-static-web-app-01.png)
+    ![](doc/azure-static-web-app-01.png)
 
     | 項目               | 設定値                        |
     |--------------------|-------------------------------|
@@ -169,9 +158,94 @@ draft: false
     </div>
     </details>
 
-3. Azure Static Site check
+3. Browse Azure Static Site
 
-    ![](/img/azure-static-web-app-02.png)
+    ![](doc/azure-static-web-app-02.png)
+
+### Deploy to GitHub Pages
+1. Setup GitHub Pages
+2. Workflow
+
+    `gh-pages.yml`
+    ```yml
+    # Simple workflow for deploying static content to GitHub Pages
+    name: Deploy static content to Pages
+
+    on:
+      # Runs on pushes targeting the default branch
+      push:
+        branches: ["sample"]
+
+      # Allows you to run this workflow manually from the Actions tab
+      workflow_dispatch:
+
+    # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    # Allow one concurrent deployment
+    concurrency:
+      group: "pages"
+      cancel-in-progress: true
+
+    jobs:
+      # Build job
+      build:
+        runs-on: ubuntu-latest
+        env:
+          HUGO_VERSION: "0.100.1"
+          WORKING_DIRECTORY: "./quickstart"
+
+        steps:
+          - name: 🛒 Checkout
+            uses: actions/checkout@v3
+
+          - name: ✨ Setup Hugo
+            run: |
+              mkdir ~/hugo
+              cd ~/hugo
+              curl -L "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz" --output hugo.tar.gz
+              tar -xvzf hugo.tar.gz
+              sudo mv hugo /usr/local/bin
+          - name: 📃 Setup Pages
+            id: pages
+            uses: actions/configure-pages@v2
+
+          - name: 🛠️ Build #TODO: eventually use the same build step in cicd.yaml (merge this action into that one)
+            run: |
+              cd ${{ env.WORKING_DIRECTORY }}
+              hugo --minify
+            # run: |
+            #   cd ${{ env.WORKING_DIRECTORY }}
+            #   hugo \
+            #     --cleanDestinationDir \
+            #     --minify \
+            #     --baseURL ${{ steps.pages.outputs.base_url }}
+
+          - name: 📦 Upload artifact
+            uses: actions/upload-pages-artifact@v1
+            # if: ${{ success() && github.ref == 'refs/heads/main' }}
+            with:
+              path: ${{ env.WORKING_DIRECTORY }}/public
+
+      # Deployment job
+      deploy:
+        environment:
+          name: github-pages
+          url: ${{ steps.deployment.outputs.page_url }}
+        runs-on: ubuntu-latest
+        needs: build
+        # if: ${{ github.ref == 'refs/heads/main' }}
+        steps:
+          - name: 🚀 Deploy
+            id: deployment
+            uses: actions/deploy-pages@v1
+    ```
+
+3. Browse GitHub Pages
+
 
 ## 参考
 * [チュートリアル:Hugo サイトを Azure Static Web Apps に発行する \| Microsoft Docs](https://docs.microsoft.com/ja-jp/azure/static-web-apps/publish-hugo)
@@ -179,4 +253,6 @@ draft: false
 * [Quick Start \| Hugo](https://gohugo.io/getting-started/quick-start/)
 * [Hugo と Github Pages でブログを作る – 三日坊主。](https://sat8bit.github.io/posts/hugo-with-github-pages/)
 * [Hugoで1からテーマを作ってGitHub Pagesにデプロイする \| メンバーズエッジカンパニーブログ](https://www.membersedge.co.jp/blog/create-hugo-theme-and-deploy-to-github-pages/)
+* [Build and deploy Hugo to GitHub Pages using GitHub Actions \| Milan Aryal](https://milanaryal.com.np/build-and-deploy-hugo-to-github-pages-using-github-actions/)
+
 
