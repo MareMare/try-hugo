@@ -164,7 +164,15 @@
 
 ### Deploy to GitHub Pages
 1. Setup GitHub Pages
-2. Workflow
+2. modify config.toml as necessary
+  
+    `config.toml`
+    ```toml
+    baseURL = 'https://maremare.github.io/try-hugo'
+    canonifyurls = true
+    ```
+
+3. Workflow
 
     `gh-pages.yml`
     ```yml
@@ -244,7 +252,7 @@
             uses: actions/deploy-pages@v1
     ```
 
-3. Browse GitHub Pages
+4. Browse GitHub Pages
 
 
 ## 参考
@@ -253,6 +261,7 @@
 * [Quick Start \| Hugo](https://gohugo.io/getting-started/quick-start/)
 * [Hugo と Github Pages でブログを作る – 三日坊主。](https://sat8bit.github.io/posts/hugo-with-github-pages/)
 * [Hugoで1からテーマを作ってGitHub Pagesにデプロイする \| メンバーズエッジカンパニーブログ](https://www.membersedge.co.jp/blog/create-hugo-theme-and-deploy-to-github-pages/)
-* [Build and deploy Hugo to GitHub Pages using GitHub Actions \| Milan Aryal](https://milanaryal.com.np/build-and-deploy-hugo-to-github-pages-using-github-actions/)
-
+* [starter\-workflows/hugo\.yml at main · actions/starter\-workflows](https://github.com/actions/starter-workflows/blob/main/pages/hugo.yml)
+  * [Build and deploy Hugo to GitHub Pages using GitHub Actions \| Milan Aryal](https://milanaryal.com.np/build-and-deploy-hugo-to-github-pages-using-github-actions/)
+* [HUGOでURLを相対パスから絶対パスにする \- Ohina Work](https://ohina.work/post/hugo_link/)
 
